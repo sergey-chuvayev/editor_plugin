@@ -5,4 +5,10 @@ $(window).keydown(function (e){
         e.preventDefault();
         return false;
     }
+
+    if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.keyCode == 72) { /*ctrl+shift+h or command+shift+h*/
+        $('[data-action="html"]').trigger('click');
+        e.preventDefault();
+        return false;
+    };
 });
