@@ -19,6 +19,10 @@ $(function(){
         };
     });
 
+    setTimeout(function() { 
+        $('.notice').hide();
+    }, 2000);
+
 });
 
 function preventScroll() {
