@@ -2,11 +2,15 @@ $(function(){
 
     console.info('EditorPlugin loaded');
 
-    preventScroll();
+    setScrollPosition(); // scroll to previous save position
+
+    preventScroll(); // don't scroll window when right bar finished scrolling 
 
     $(window).keydown(function (e){
         if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.keyCode == 83) { /*ctrl+shift+s or command+shift+s*/
-            console.info('saving post...');
+            
+            saveScrollPosition();
+
             $('[role="post:save"]').first().trigger('click');
             e.preventDefault();
             return false;
@@ -19,9 +23,10 @@ $(function(){
         };
     });
 
+    // hide notice bar
     setTimeout(function() { 
         $('.notice').hide();
-    }, 2000);
+    }, 1000);
 
 });
 
@@ -37,4 +42,16 @@ function preventScroll() {
     });
 }
 
+function saveScrollPosition() {
+    chrome.runtime.sendMessage({position: $(window).scrollTop()}, function(response) {
+        console.log(response.farewell);
+    });
+}
+
+function setScrollPosition() {
+    chrome.runtime.sendMessage({position: 'get'}, function(response) {
+        var body = $("html, body");
+        body.stop().animate({scrollTop: response.position}, '200', 'swing', function() { });
+    });  
+}
 
