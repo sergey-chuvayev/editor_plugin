@@ -32,14 +32,19 @@ $(function(){
 
 function preventScroll() {
 
-    var toolbox = $('.media-container .media-list'),
-    height = toolbox.height(),
-    scrollHeight = toolbox.get(0).scrollHeight;
-
-    toolbox.off("mousewheel").on("mousewheel", function (event) {
-        var blockScrolling = this.scrollTop === scrollHeight - height && event.deltaY < 0 || this.scrollTop === 0 && event.deltaY > 0;
-        return !blockScrolling;
+    var toolbox = $('.media-container .media-list');
+    
+    toolbox.hover(function(){
+        console.log('asdasd')
+        var height = toolbox.height(),
+        scrollHeight = toolbox.get(0).scrollHeight;
+        toolbox.off("mousewheel").on("mousewheel", function (event) {
+            var blockScrolling = this.scrollTop === scrollHeight - height && event.deltaY < 0 || this.scrollTop === 0 && event.deltaY > 0;
+            return !blockScrolling;
+        });
     });
+
+
 }
 
 function saveScrollPosition() {
