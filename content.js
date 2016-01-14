@@ -44,14 +44,12 @@ function preventScroll() {
 
 function saveScrollPosition() {
     chrome.runtime.sendMessage({position: $(window).scrollTop()}, function(response) {
-        console.log(response.farewell);
     });
 }
 
 function setScrollPosition() {
     chrome.runtime.sendMessage({position: 'get'}, function(response) {
-        var body = $("html, body");
-        body.stop().animate({scrollTop: response.position}, '200', 'swing', function() { });
+        $(window).scrollTop(response.position);
     });  
 }
 
